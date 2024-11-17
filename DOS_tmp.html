@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DOS.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h3 id="denial-of-service-dos">Denial Of Service (DOS)</h3>
+<p><strong>Decription</strong>
+DDos  exploit is where an attacker disrupts the normal operation of a decentralized application (DApp), smart contract, or blockchain network. The goal of a DoS attack is to make the service unavailable to users or to prevent the smart contract from executing certain functions.</p>
+<p><strong>Types of DDos attacks</strong>
+At a broader classification, types of DDoS attacks can be categorized as:</p>
+<ol>
+<li>Application Layer Attacks
+These target vulnerabilities in the application logic or functionality to disrupt service.</li>
+</ol>
+<ul>
+<li>Gas Limit Exploitation:
+Exploits application design flaws, such as unbounded loops, to cause transactions to exceed gas limits, preventing execution.</li>
+<li>Griefing Attack:
+Manipulates application functionality to make operations more costly or unusable for legitimate users, e.g., spamming invalid inputs.</li>
+</ul>
+<details>
+<summary> Example Vulnerability </summary>
+A smart contract iterates through a dynamically growing list of users, which could exceed the gas limit if too many entries are added.
+</details><pre class="hljs"><code><div><span class="hljs-comment">// Vulnerable Contract</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract GasLimitExploit {
+    address[] public users;
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addUser</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> </span>{
+        users.push(msg.sender);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">payout</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> </span>{
+        <span class="hljs-keyword">for</span> (uint i = <span class="hljs-number">0</span>; i &lt; users.length; i++) {
+            payable(users[i]).transfer(<span class="hljs-number">1</span> ether);
+        }
+    }
+
+    <span class="hljs-comment">// Receive Ether</span>
+    receive() external payable {}
+}
+
+</div></code></pre>
+
+<h3 id="attack">Attack</h3>
+<p>The attacker adds thousands of entries to the users array, causing the payout function to fail due to excessive gas usage.</p>
+<details>
+<summary>Mitigation</summary>
+Avoid unbounded loops and introduce a pull payment mechanism to distribute funds.
+</details><pre class="hljs"><code><div><span class="hljs-comment">// Mitigated Contract</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract MitigatedGasLimit {
+    mapping(<span class="hljs-function"><span class="hljs-params">address</span> =&gt;</span> uint) public balances;
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deposit</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> <span class="hljs-title">payable</span> </span>{
+        balances[msg.sender] += msg.value;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> </span>{
+        uint amount = balances[msg.sender];
+        balances[msg.sender] = <span class="hljs-number">0</span>; <span class="hljs-comment">// Update state before external call</span>
+        payable(msg.sender).transfer(amount);
+    }
+}
+
+</div></code></pre>
+
+<ol start="2">
+<li>Protocol Attacks
+These exploit weaknesses in the underlying protocol or blockchain mechanisms.</li>
+</ol>
+<ul>
+<li>
+<p>Storage Manipulation:
+Overloads or manipulates the smart contract's state storage to cause expensive operations, out-of-gas errors, or unresponsiveness.</p>
+</li>
+<li>
+<p>Lockout Attack:
+Prevents the use of specific smart contract functionalities by exploiting protocol-level behavior, e.g., sending invalid data or locking critical operations.</p>
+</li>
+</ul>
+<h3 id="protocol-attacks--storage-manipulation">Protocol Attacks , Storage Manipulation</h3>
+<p>Vulnerable Code
+The contract charges gas based on the number of storage slots accessed. An attacker can inflate the array to manipulate gas usage.</p>
+<details>
+<summary>Vulnerable Code</summary>
+</details><pre class="hljs"><code><div><span class="hljs-comment">// Vulnerable Contract</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract StorageExploit {
+    uint[] public data;
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addData</span>(<span class="hljs-params">uint _value</span>) <span class="hljs-title">public</span> </span>{
+        data.push(_value);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">expensiveOperation</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> </span>{
+        <span class="hljs-keyword">for</span> (uint i = <span class="hljs-number">0</span>; i &lt; data.length; i++) {
+            data[i] = data[i] + <span class="hljs-number">1</span>; <span class="hljs-comment">// Expensive operation on large storage</span>
+        }
+    }
+}
+
+</div></code></pre>
+
+
+<h3 id="attack">Attack</h3>
+<p>The attacker fills the data array with large amounts of data, making the expensiveOperation function consume excessive gas or fail.</p>
+<details>
+<summary>Mitigation</summary>
+Use batch processing to handle large arrays incrementally.
+</details><pre class="hljs"><code><div><span class="hljs-comment">// Mitigated Contract</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract MitigatedStorage {
+    uint[] public data;
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addData</span>(<span class="hljs-params">uint _value</span>) <span class="hljs-title">public</span> </span>{
+        data.push(_value);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">processBatch</span>(<span class="hljs-params">uint start, uint end</span>) <span class="hljs-title">public</span> </span>{
+        <span class="hljs-built_in">require</span>(end &lt;= data.length, <span class="hljs-string">"Invalid range"</span>);
+        <span class="hljs-keyword">for</span> (uint i = start; i &lt; end; i++) {
+            data[i] = data[i] + <span class="hljs-number">1</span>;
+        }
+    }
+}
+
+</div></code></pre>
+
+<ol>
+<li>Volumetric Attacks
+These involve overwhelming the network or blockchain with a high volume of transactions or data to degrade performance or accessibility.</li>
+</ol>
+<ul>
+<li>Block Filling:
+Floods the blockchain with high-gas transactions to fill block space, delaying or preventing other users' transactions.</li>
+</ul>
+
+<h3 id="volumetric-attacks-block-filling">Volumetric Attacks, Block filling</h3>
+<p>The attacker floods the blockchain with transactions targeting a function that accepts arbitrary data, consuming block gas limits.</p>
+<details>
+<summary>Vulnerable Code</summary>
+</details><pre class="hljs"><code><div><span class="hljs-comment">// Vulnerable Contract</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract BlockFillingExploit {
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">spam</span>(<span class="hljs-params">uint _value</span>) <span class="hljs-title">public</span> </span>{
+        <span class="hljs-keyword">for</span> (uint i = <span class="hljs-number">0</span>; i &lt; _value; i++) {
+            <span class="hljs-comment">// No meaningful operation</span>
+        }
+    }
+}
+
+</div></code></pre>
+
+
+<h3 id="attack">Attack</h3>
+<p>An attacker repeatedly calls spam with high _value, filling up blocks and delaying other transactions.</p>
+<details>
+<summary>Mitigation</summary>
+</details><p>Introduce rate limiting or restrict the size of user-provided inputs.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Mitigated Contract</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract MitigatedBlockFilling {
+    uint public lastCallTime;
+
+    modifier rateLimit() {
+        <span class="hljs-built_in">require</span>(block.timestamp &gt;= lastCallTime + <span class="hljs-number">1</span> minutes, <span class="hljs-string">"Rate limit exceeded"</span>);
+        _;
+        lastCallTime = block.timestamp;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">safeSpam</span>(<span class="hljs-params">uint _value</span>) <span class="hljs-title">public</span> <span class="hljs-title">rateLimit</span> </span>{
+        <span class="hljs-built_in">require</span>(_value &lt;= <span class="hljs-number">100</span>, <span class="hljs-string">"Input exceeds limit"</span>);
+        <span class="hljs-keyword">for</span> (uint i = <span class="hljs-number">0</span>; i &lt; _value; i++) {
+            <span class="hljs-comment">// Meaningful operation</span>
+        }
+    }
+}
+
+</div></code></pre>
+
+<p><strong>Resources to Read more</strong>
+https://medium.com/@kavib/ddos-distributed-denial-of-service-types-signs-of-attack-consequences-mitigation-c3b8a7bf81d5</p>
+<p>https://medium.com/@kavib/ddos-distributed-denial-of-service-types-signs-of-attack-consequences-mitigation-c3b8a7bf81d5</p>
+<p>https://www.isecurdata.com/ddos-mitigation-strategies-infographic/</p>
+
+</body>
+</html>
